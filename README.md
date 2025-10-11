@@ -1,4 +1,4 @@
-# DotC-Nvim
+# Nvim
 This is my nvim configuration used to programming in csharp, cpp, c, rust, jsx and golong.
 Focused to CLI Development.
 
