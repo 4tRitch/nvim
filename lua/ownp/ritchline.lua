@@ -3,7 +3,7 @@ local M = {}
 local api = vim.api
 local buf, win
 
--- Función para cerrar la ventana flotante
+-- Function to close floating window
 local function close_window()
   if win and api.nvim_win_is_valid(win) then
     api.nvim_win_close(win, true)
@@ -15,7 +15,7 @@ local function close_window()
   win = nil
 end
 
--- Función para obtener el nombre corto del buffer
+-- Function to get short buffer name
 local function get_buffer_name(bufnr)
   local name = api.nvim_buf_get_name(bufnr)
   if name == "" then
@@ -24,7 +24,7 @@ local function get_buffer_name(bufnr)
   return vim.fn.fnamemodify(name, ":~:.")
 end
 
--- Función para obtener el icono según el tipo de archivo
+-- Function to get icon by filetype
 local function get_filetype_icon(bufnr)
   local ft = vim.bo[bufnr].filetype
   local icons = {
@@ -44,9 +44,9 @@ local function get_filetype_icon(bufnr)
   return icons[ft] or ""
 end
 
--- Función para listar buffers
+-- Function to list buffers
 local function list_buffers()
-  local buffers = { }
+  local buffers = {}
   local buffer_list = api.nvim_list_bufs()
 
   for _, bufnr in ipairs(buffer_list) do
@@ -66,7 +66,7 @@ local function list_buffers()
   return buffers
 end
 
--- Función para actualizar el contenido de la ventana
+-- Function to update window content
 local function update_view()
   if not buf or not api.nvim_buf_is_valid(buf) then
     return
@@ -87,25 +87,22 @@ local function update_view()
   api.nvim_buf_set_lines(buf, 0, -1, false, lines)
   api.nvim_buf_set_option(buf, "modifiable", false)
 
-  -- Guardar referencia de buffers para mappings
+  -- Save buffer reference for mappings
   vim.b[buf].buffer_list = buffers
 end
 
--- Función para obtener el buffer en la línea actual
+-- Function to get buffer at cursor
 local function get_buffer_at_cursor()
   local line = api.nvim_win_get_cursor(win)[1]
   local buffers = vim.b[buf].buffer_list or {}
 
-  -- Ajustar por las líneas de encabezado
-  local index = line
-
-  if index >= 1 and index <= #buffers then
-    return buffers[index].bufnr
+  if line >= 1 and line <= #buffers then
+    return buffers[line].bufnr
   end
   return nil
 end
 
--- Función para abrir buffer seleccionado
+-- Function to open selected buffer
 local function open_buffer()
   local bufnr = get_buffer_at_cursor()
   if bufnr then
@@ -114,7 +111,7 @@ local function open_buffer()
   end
 end
 
--- Función para cerrar buffer seleccionado
+-- Function to delete selected buffer
 local function delete_buffer()
   local bufnr = get_buffer_at_cursor()
   if bufnr then
@@ -127,24 +124,30 @@ local function delete_buffer()
   end
 end
 
--- Función para crear la ventana flotante
+-- Function to create floating window
 local function create_window()
-  -- Dimensiones de la ventana
-  local width = math.floor(vim.o.columns * 0.6)
-  local height = math.floor(vim.o.lines * 0.6)
+  -- Window dimensions (same as nvim-tree)
+  local screen_w = vim.opt.columns:get()
+  local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+  local width = math.floor(screen_w * 0.6)
+  local height = math.floor(screen_h * 0.7)
 
-  -- Posición centrada
-  local row = math.floor((vim.o.lines - height) / 2)
-  local col = math.floor((vim.o.columns - width) / 2)
+  -- Centered position (same as nvim-tree)
+  local row = ((vim.opt.lines:get() - height) / 2) - vim.opt.cmdheight:get()
+  local col = (screen_w - width) / 2
 
-  -- Crear buffer
+  -- Configure highlights before creating window
+  vim.api.nvim_set_hl(0, "BufferFloatNormal", { bg = "NONE" })
+  vim.api.nvim_set_hl(0, "BufferFloatBorder", { bg = "", fg = "NONE" })
+
+  -- Create buffer
   buf = api.nvim_create_buf(false, true)
 
-  -- Configurar opciones del buffer
+  -- Configure buffer options
   api.nvim_buf_set_option(buf, "bufhidden", "wipe")
   api.nvim_buf_set_option(buf, "filetype", "bufferfloat")
 
-  -- Opciones de la ventana flotante
+  -- Floating window options
   local opts = {
     relative = "editor",
     width = width,
@@ -159,14 +162,14 @@ local function create_window()
     footer_pos = "center"
   }
 
-  -- Crear ventana flotante
+  -- Create floating window
   win = api.nvim_open_win(buf, true, opts)
 
-  -- Configurar opciones de la ventana
-  api.nvim_win_set_option(win, "winhl", "Normal:Normal,FloatBorder:FloatBorder")
+  -- Configure window options with custom highlights
+  api.nvim_win_set_option(win, "winhl", "Normal:BufferFloatNormal,FloatBorder:BufferFloatBorder")
   api.nvim_win_set_option(win, "cursorline", true)
 
-  -- Configurar mappings
+  -- Configure mappings
   local keymaps = {
     ["q"] = close_window,
     ["<Esc>"] = close_window,
@@ -186,11 +189,11 @@ local function create_window()
 
   update_view()
 
-  -- Mover cursor a la primera línea de buffers
+  -- Move cursor to first buffer line
   api.nvim_win_set_cursor(win, {1, 0})
 end
 
--- Función principal para toggle la ventana
+-- Main function to toggle window
 function M.toggle()
   if win and api.nvim_win_is_valid(win) then
     close_window()
