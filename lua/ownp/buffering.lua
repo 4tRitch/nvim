@@ -202,4 +202,21 @@ function M.toggle()
   end
 end
 
+-- Configurar atajos de teclado
+local function setup_keymaps()
+  -- Buffer Manager
+  vim.keymap.set("n", "<Tab>", function()
+    M.toggle()
+  end, { desc = "Toggle buffer manager flotante" })
+
+  -- New Buffer
+  vim.keymap.set('n', '<leader>bn', ':enew<CR>', { desc = 'Nuevo buffer' })
+
+  -- Delete Current Buffer
+  vim.keymap.set('n', '<leader>bx', ':bdelete<CR>', { desc = 'Cerrar buffer actual' })
+end
+
+
+setup_keymaps()
+
 return M
