@@ -19,7 +19,7 @@ end
 local function get_buffer_name(bufnr)
   local name = api.nvim_buf_get_name(bufnr)
   if name == "" then
-    return "[Unknown]"
+    return "[Empty]"
   end
   return vim.fn.fnamemodify(name, ":~:.")
 end
@@ -46,7 +46,7 @@ end
 
 -- Función para listar buffers
 local function list_buffers()
-  local buffers = { "", "" }
+  local buffers = { }
   local buffer_list = api.nvim_list_bufs()
 
   for _, bufnr in ipairs(buffer_list) do
@@ -76,15 +76,12 @@ local function update_view()
   local lines = {}
 
   if #buffers == 0 then
-    table.insert(lines, "  No hay buffers abiertos")
+    table.insert(lines, "  No Active Buffers")
   else
     for _, buffer_info in ipairs(buffers) do
       table.insert(lines, buffer_info.display)
     end
   end
-
-  table.insert(lines, "")
-  table.insert(lines, "  <CR>: Abrir | d: Cerrar | q: Salir")
 
   api.nvim_buf_set_option(buf, "modifiable", true)
   api.nvim_buf_set_lines(buf, 0, -1, false, lines)
@@ -100,7 +97,7 @@ local function get_buffer_at_cursor()
   local buffers = vim.b[buf].buffer_list or {}
 
   -- Ajustar por las líneas de encabezado
-  local index = line - 2
+  local index = line
 
   if index >= 1 and index <= #buffers then
     return buffers[index].bufnr
@@ -125,7 +122,7 @@ local function delete_buffer()
     if ok then
       update_view()
     else
-      vim.notify("Buffer tiene cambios sin guardar. Usa :bdelete! para forzar", vim.log.levels.WARN)
+      vim.notify("Buffer has unsave changes. Use :bdelete! to force it", vim.log.levels.WARN)
     end
   end
 end
@@ -157,7 +154,9 @@ local function create_window()
     style = "minimal",
     border = "rounded",
     title = " Buffer Manager ",
-    title_pos = "center"
+    title_pos = "center",
+    footer = " <CR>: Open | d: Close | q: Quit ",
+    footer_pos = "center"
   }
 
   -- Crear ventana flotante
@@ -188,7 +187,7 @@ local function create_window()
   update_view()
 
   -- Mover cursor a la primera línea de buffers
-  api.nvim_win_set_cursor(win, {3, 0})
+  api.nvim_win_set_cursor(win, {1, 0})
 end
 
 -- Función principal para toggle la ventana
