@@ -15,7 +15,6 @@ require("mappings.genmap")
 require("mappings.lspmap")
 require("mappings.treemap")
 require("mappings.telemap")
-require("mappings.buffermap")
 
 -- vim.api.nvim_set_hl(0, "NormalFloat", {
 --   fg = "none",
@@ -26,11 +25,6 @@ require("mappings.buffermap")
 
 -- Erease the search history
 opt.shada = ""
-
--- Buffers line
-opt.termguicolors = true
-require("bufferline").setup{}
-
 
 --Indentation Config
 indent.expandtab = true   -- expand tab input with spaces characters
@@ -68,5 +62,9 @@ require 'nvim-treesitter.configs'.setup {
 
 
 
-require("config.bufferline")
+-- Own Implementations
 require("config.lualine")
+require("ownp")
+
+
+
