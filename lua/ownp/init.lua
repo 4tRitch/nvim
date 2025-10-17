@@ -1,3 +1,5 @@
 #Plugins
 require("ownp.buffering")
-require("ownp.fterminal")
+require("ownp.fterminal").setup({
+  shell = 'pwsh'
+})

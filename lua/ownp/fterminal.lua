@@ -217,7 +217,5 @@ function M.setup(opts)
   local shell = detect_os_and_shell()
 end
 
--- Auto-inicializar con configuración por defecto
-M.setup()
 
 return M
