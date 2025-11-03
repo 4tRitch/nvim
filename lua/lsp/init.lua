@@ -10,7 +10,6 @@ vim.diagnostic.config({
 require("lsp.csharp")
 require("lsp.lua_lsp")
 require("lsp.pws")
--- require("lsp.rust")
 -- require("lsp.go")
 -- require("lsp.clang")
 -- require("lsp.cmake")
