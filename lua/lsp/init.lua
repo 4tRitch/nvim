@@ -10,7 +10,7 @@ vim.diagnostic.config({
 require("lsp.csharp")
 require("lsp.lua_lsp")
 require("lsp.pws")
--- require("lsp.go")
+require("lsp.go")
 -- require("lsp.clang")
 -- require("lsp.cmake")
 require("lsp.ts")
@@ -24,6 +24,8 @@ vim.lsp.enable("powershell_es")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("html")
 vim.lsp.enable("cssls")
+vim.lsp.enable("gopls")
+
 
 
 
