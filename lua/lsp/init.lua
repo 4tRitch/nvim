@@ -11,20 +11,22 @@ require("lsp.csharp")
 require("lsp.lua_lsp")
 require("lsp.pws")
 require("lsp.go")
+-- require("lsp.svlt")
 -- require("lsp.clang")
 -- require("lsp.cmake")
-require("lsp.ts")
-require("lsp.html")
-require("lsp.css")
+-- require("lsp.ts")
+-- require("lsp.html")
+-- require("lsp.css")
 
 
 -- Start each LSP
 vim.lsp.enable("csharp_ls")
 vim.lsp.enable("powershell_es")
-vim.lsp.enable("ts_ls")
-vim.lsp.enable("html")
-vim.lsp.enable("cssls")
+-- vim.lsp.enable("ts_ls")
+-- vim.lsp.enable("html")
+-- vim.lsp.enable("cssls")
 vim.lsp.enable("gopls")
+-- vim.lsp.enable("svelte")
 
 
 

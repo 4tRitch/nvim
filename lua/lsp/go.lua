@@ -1,12 +1,3 @@
-local M = require("lsp.utils")
-
-local capabilities, on_attach = M.get_common()
-local bin_ext = M.get_bin_ext()
-local bin_path = M.get_bin_path()
-local util = require ('lspconfig').util
-
-
-
 local mod_cache = nil
 local std_lib = nil
 
