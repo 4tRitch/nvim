@@ -1,8 +1,3 @@
-local M = require("lsp.utils")
-
-local bin_ext = M.get_bin_ext()
-local bin_path = M.get_bin_path()
-
 -- local capabilities = blink_cmp.get_lsp_capabilities()
 -- local function on_attach(client, bufnr)
 -- end
@@ -72,7 +67,7 @@ end
 
 ---@type vim.lsp.Config
 return {
-  cmd = { 'clangd' },
+  cmd = { "clangd" },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
   root_markers = {
     '.clangd',

@@ -27,7 +27,6 @@ vim.diagnostic.config({
 -- C/CPP
 -- require("lsp.cpp")
 require("lsp.clang")
--- require("lsp.cmake")
 
 
 -- Start each LSP
@@ -48,10 +47,6 @@ vim.lsp.enable("clangd")
 -- vim.lsp.enable("html")
 -- vim.lsp.enable("cssls")
 -- vim.lsp.enable("svelte")
-
-
-
-
 
 
 
