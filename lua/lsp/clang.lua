@@ -68,15 +68,16 @@ end
 ---@type vim.lsp.Config
 return {
   cmd = { "clangd" },
-  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+  filetypes = { 'c', 'cpp' },
+  -- filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
   root_markers = {
     '.clangd',
-    '.clang-tidy',
-    '.clang-format',
+    -- '.clang-tidy',
+    -- '.clang-format',
     'compile_commands.json',
-    'compile_flags.txt',
-    'configure.ac', -- AutoTools
-    '.git',
+    -- 'compile_flags.txt',
+    -- 'configure.ac', -- AutoTools
+    -- '.git',
   },
   capabilities = {
     textDocument = {
