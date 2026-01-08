@@ -67,7 +67,14 @@ end
 
 ---@type vim.lsp.Config
 return {
-  cmd = { "clangd" },
+  cmd = {
+    "clangd",
+    "--background-index=false",
+    "--header-insertion=never",
+    "--clang-tidy=false",
+    "--pch-storage=disk",
+    "--malloc-trim",
+  },
   filetypes = { 'c', 'cpp' },
   -- filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
   root_markers = {
