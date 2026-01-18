@@ -8,46 +8,60 @@ vim.diagnostic.config({
 
 -- Load each configuration of LSP
 
--- Not Use
--- require("lsp.csharp")
--- require("lsp.pws")
--- require("lsp.go")
-
--- In Use
--- require("lsp.lua_lsp")
--- require("lsp.psql")
-
--- Web
--- require("lsp.ts")
--- require("lsp.svlt")
--- require("lsp.html")
--- require("lsp.css")
-
-
--- C/CPP
--- require("lsp.cpp")
-require("lsp.clang")
-
-
--- Start each LSP
-
--- Not Use
--- vim.lsp.enable("csharp_ls")
--- vim.lsp.enable("powershell_es")
+-- Golang
+-- local golang = require("lsp.go")
+-- vim.lsp.config('gopls', golang)
 -- vim.lsp.enable("gopls")
 
+-- Lua
+-- local lua = require("lsp.lua_lsp")
+-- vim.lsp.config('', lua)
+-- vim.lsp.enable("")
 
--- In Use
+-- CSharp
+-- local cs = require("lsp.csharp")
+-- vim.lsp.config('csharp_ls', cs)
+-- vim.lsp.enable("csharp_ls")
+
+-- Powershell
+-- local pws = require("lsp.pws")
+-- vim.lsp.config('powershell_es', pws)
+-- vim.lsp.enable("powershell_es")
+
+
+-- Lua
+-- require("lsp.lua_lsp")
+-- vim.lsp.config('postgres_lsp', psql)
 -- vim.lsp.enable("postgres_lsp")
-vim.lsp.enable("clangd")
 
 
---Web
+-- Postgres
+-- local psql = require("lsp.psql")
+-- vim.lsp.config('postgres_lsp', psql)
+-- vim.lsp.enable("postgres_lsp")
+
+
+-- Web
+-- local ts = require("lsp.ts")
+-- local html = require("lsp.html")
+-- local css = require("lsp.css")
+-- local svlt = require("lsp.svlt")
+--
+-- vim.lsp.config('ts_ls', ts)
+-- vim.lsp.config('html', html)
+-- vim.lsp.config('cssls', css)
+-- vim.lsp.config('svelte', svlt)
+--
 -- vim.lsp.enable("ts_ls")
 -- vim.lsp.enable("html")
 -- vim.lsp.enable("cssls")
 -- vim.lsp.enable("svelte")
 
+
+-- C/CPP
+-- local clangd = require("lsp.clangd")
+-- vim.lsp.config('clangd', clangd)
+-- vim.lsp.enable("clangd")
 
 
 -- lua print(vim.inspect(vim.lsp.get_clients()))
