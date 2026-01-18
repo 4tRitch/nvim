@@ -16,13 +16,6 @@ require("mappings.lspmap")
 require("mappings.treemap")
 require("mappings.telemap")
 
--- vim.api.nvim_set_hl(0, "NormalFloat", {
---   fg = "none",
---   bg = "none",
--- })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1d2021" })  -- fondo hard de gruvbox
--- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1d2021", fg = "#1d2021" })
-
 -- Erease the search history
 opt.shada = ""
 
@@ -49,13 +42,10 @@ api.nvim_set_option("clipboard","unnamed")
 
 
 
+-- Treesitter Config
 require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
 }
