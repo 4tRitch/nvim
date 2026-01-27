@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 -- theme = "kanagawa"
-theme = "gruvbox-material"
+theme = "zenwritten"
 
 -- Setup lazy.nvim
 require("lazy").setup({
