@@ -3,9 +3,20 @@ return {
   'mrcjkb/rustaceanvim',
   version = '^5',
   lazy = false,
-  config = function()
+  init = function()
+    -- NOTE: rustaceanvim's default `server.auto_attach` checks for "absolute" file paths.
+    -- On some Windows builds (e.g. MSYS2/MinGW, where `vim.uv.os_uname().sysname` is like
+    -- `MINGW32_NT-10.0`) rustaceanvim may treat the OS as non-Windows, making `C:\...`
+    -- paths fail that check and preventing the LSP from starting.
+    local function auto_attach(bufnr)
+      return vim.bo[bufnr].buftype == ""
+        and vim.api.nvim_buf_get_name(bufnr) ~= ""
+        and vim.fn.executable("rust-analyzer") == 1
+    end
+
     vim.g.rustaceanvim = {
       server = {
+        auto_attach = auto_attach,
         settings = {
           ["rust-analyzer"] = {
             inlayHints = {
@@ -27,7 +38,7 @@ return {
       },
     }
 
-    -- 🔹 habilitar inlay hints automáticamente
+    -- habilitar inlay hints automáticamente
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
