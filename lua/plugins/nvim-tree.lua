@@ -11,6 +11,12 @@ return {
 				},
 			}
 		},
+    filesystem_watchers = {
+      enable = true,
+      ignore_dirs = {
+        "target",
+      },
+    },
 		view = {
 			side = "right",
 			centralize_selection = true,
