@@ -24,9 +24,9 @@ vim.diagnostic.config({
 -- vim.lsp.enable("csharp_ls")
 
 -- Powershell
--- local pws = require("lsp.pws")
--- vim.lsp.config('powershell_es', pws)
--- vim.lsp.enable("powershell_es")
+local pws = require("lsp.pws")
+vim.lsp.config('powershell_es', pws)
+vim.lsp.enable("powershell_es")
 
 
 -- Lua
